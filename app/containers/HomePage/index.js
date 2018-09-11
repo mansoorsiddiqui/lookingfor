@@ -10,16 +10,44 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+
+import Root from 'components/Root';
+import Logo from 'components/Logo';
+import Search from 'components/Search';
+
+import { Input, Icon, Popup } from 'semantic-ui-react';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.PureComponent {
   render() {
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <Root>
+        <div>
+          I am
+          <Popup
+            trigger={
+              <Logo
+                href="https://github.com/mansoorsiddiqui/lookingfor"
+                target="_blank"
+              >
+                LookingFor
+              </Logo>
+            }
+            content={<Icon name="github" color="white" size="big" />}
+            position="top center"
+            inverted
+          />
+          a
+          <Search>
+            <Input
+              icon={<Icon name="search" circular size="small" inverted />}
+              placeholder="Search..."
+              size="mini"
+              transparent
+            />
+          </Search>
+        </div>
+      </Root>
     );
   }
 }
