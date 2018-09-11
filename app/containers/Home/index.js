@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -19,18 +19,22 @@ import { Input, Icon, Popup } from 'semantic-ui-react';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectHome from './selectors';
+import { changeSearchText, getProducts } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Home extends React.Component {
   handleSearch = e => {
-    if (e.target.value !== '') {
-      // donothingyet
+    if (e.target.value !== this.props.home.searchText) {
+      this.props.onChangeSearchText(e.target.value);
+      this.props.onGetProducts(e.target.value);
     }
   };
 
   render() {
+    const { home } = this.props;
+
     return (
       <Root>
         <div>
@@ -51,7 +55,9 @@ export class Home extends React.Component {
           a
           <Search>
             <Input
+              focus
               icon={<Icon name="search" circular size="small" inverted />}
+              value={home.searchText}
               onChange={this.handleSearch}
               placeholder="Search..."
               size="mini"
@@ -64,7 +70,11 @@ export class Home extends React.Component {
   }
 }
 
-// Home.propTypes = {};
+Home.propTypes = {
+  home: PropTypes.any,
+  onChangeSearchText: PropTypes.func,
+  onGetProducts: PropTypes.func,
+};
 
 const mapStateToProps = createStructuredSelector({
   home: makeSelectHome(),
@@ -72,7 +82,12 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onChangeSearchText: text => {
+      dispatch(changeSearchText(text));
+    },
+    onGetProducts: text => {
+      dispatch(getProducts(text));
+    },
   };
 }
 
