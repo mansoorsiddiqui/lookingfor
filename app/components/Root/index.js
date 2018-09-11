@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 const Root = styled.div`
   position: absolute;
+  overflow-y: scroll;
   top: 0;
   left: 0;
   width: 100vw;
@@ -16,8 +17,9 @@ const Root = styled.div`
   background: black;
   color: white;
   font-size: 24px;
-  display: grid;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
   align-items: center;
   background: #5536c4; /* Old browsers */
   background: -moz-linear-gradient(

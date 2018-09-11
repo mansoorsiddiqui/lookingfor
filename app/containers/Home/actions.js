@@ -4,7 +4,13 @@
  *
  */
 
-import { DEFAULT_ACTION, CHANGE_SEARCH_TEXT, GET_PRODUCTS } from './constants';
+import {
+  DEFAULT_ACTION,
+  CHANGE_SEARCH_TEXT,
+  GET_PRODUCTS,
+  RECIEVE_PRODUCTS,
+  SELECT_PRODUCT,
+} from './constants';
 
 export function defaultAction() {
   return {
@@ -23,5 +29,19 @@ export function getProducts(text) {
   return {
     type: GET_PRODUCTS,
     text,
+  };
+}
+
+export function recieveProducts(products) {
+  return {
+    type: RECIEVE_PRODUCTS,
+    products,
+  };
+}
+
+export function selectProduct(product) {
+  return {
+    type: SELECT_PRODUCT,
+    product,
   };
 }

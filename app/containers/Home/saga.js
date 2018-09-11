@@ -1,14 +1,15 @@
-import { call, put, push, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import request from 'utils/request';
-import { GET_PRODUCTS } from './constants';
+import { GET_PRODUCTS, RECIEVE_PRODUCTS } from './constants';
 
-const apiKey = 'MDowMWYyMDYzOC1iNWZiLTExZTgtODdkZC1iMzk5ZjJlZWExYjc6MW45bjg3SEFkTlkwVEF5aVE5SXhpTXZBdGtpTjhiN01FaVow';
+const apiKey =
+  'Token MDowMWYyMDYzOC1iNWZiLTExZTgtODdkZC1iMzk5ZjJlZWExYjc6MW45bjg3SEFkTlkwVEF5aVE5SXhpTXZBdGtpTjhiN01FaVow';
 
 // Individual exports for testing
 export function* getProducts(action) {
-  const requestUrl = `https://lcboapi.com/products/?q=${action.text}`;
+  const requestUrl = `https://lcboapi.com/products?q=${action.text}`;
   const options = {
-    method: 'POST',
+    method: 'GET',
     headers: {
       Authorization: apiKey,
     },
@@ -16,7 +17,7 @@ export function* getProducts(action) {
 
   try {
     const response = yield call(request, requestUrl, options);
-    console.log(response);
+    yield put({ type: RECIEVE_PRODUCTS, products: response.result });
   } catch (error) {
     console.log(error);
   }
