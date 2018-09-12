@@ -10,6 +10,9 @@ import {
   GET_PRODUCTS,
   RECIEVE_PRODUCTS,
   SELECT_PRODUCT,
+  SET_POSITION,
+  GET_STORES,
+  RECIEVE_STORES,
 } from './constants';
 
 export function defaultAction() {
@@ -43,5 +46,27 @@ export function selectProduct(product) {
   return {
     type: SELECT_PRODUCT,
     product,
+  };
+}
+
+export function setPosition(position) {
+  return {
+    type: SET_POSITION,
+    position,
+  };
+}
+
+export function getStores(productId, coords) {
+  return {
+    type: GET_STORES,
+    productId,
+    coords,
+  };
+}
+
+export function recieveStores(stores) {
+  return {
+    type: RECIEVE_STORES,
+    stores,
   };
 }
